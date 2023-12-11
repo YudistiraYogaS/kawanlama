@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kawanlama/application/auth_controller.dart';
-import 'package:kawanlama/presentation/components/app_button.dart';
+import 'package:kawanlama/domain/constant/app_colors.dart';
 import 'package:kawanlama/utilities/i10n/l10n.dart';
 import 'package:kawanlama/utilities/injection/injection.dart';
 import 'package:kawanlama/utilities/router/app_router.dart';
@@ -20,13 +20,25 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: AppButton.defaults(
-          title: I10n.current.logout,
-          onPressed: () async => await _doLogout(),
-        ),
+    return AutoTabsScaffold(
+      appBarBuilder: (context, _) => AppBar(
+        actions: [IconButton.outlined(onPressed: () async => _doLogout(), icon: const Icon(Icons.logout))],
       ),
+      routes: const [
+        LoginRoute(),
+        LoginRoute(),
+      ],
+      bottomNavigationBuilder: (_, tabsRouter) {
+        return BottomNavigationBar(
+          currentIndex: tabsRouter.activeIndex,
+          onTap: tabsRouter.setActiveIndex,
+          selectedIconTheme: IconThemeData(color: AppColors.primary),
+          items: [
+            BottomNavigationBarItem(label: I10n.current.contact, icon: const Icon(Icons.list)),
+            BottomNavigationBarItem(label: I10n.current.favorite, icon: const Icon(Icons.favorite)),
+          ],
+        );
+      },
     );
   }
 

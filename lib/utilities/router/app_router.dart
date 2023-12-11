@@ -17,6 +17,15 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(path: AppPages.loginRoute, page: LoginRoute.page),
-        AutoRoute(path: AppPages.homeRoute, page: HomeRoute.page, guards: [_guard], initial: true),
+        AutoRoute(
+            path: AppPages.homeRoute,
+            page: HomeRoute.page,
+            guards: [_guard],
+            initial: true,
+            children: [
+              RedirectRoute(path: '', redirectTo: AppPages.homeContactRoute),
+              AutoRoute(path: AppPages.homeContactRoute, page: LoginRoute.page),
+              AutoRoute(path: AppPages.homeFavoriteRoute, page: LoginRoute.page),
+            ]),
       ];
 }

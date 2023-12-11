@@ -12,5 +12,7 @@
   "logout": "Logout",
   "greetings": "Hei,",
   "welcome": "Welcome",
-  "login_info": "Please login with {sign_in_provider} to continue"
+  "login_info": "Please login with {sign_in_provider} to continue",
+  "contact": "Contact",
+  "favorite": "Favorite"
 }
