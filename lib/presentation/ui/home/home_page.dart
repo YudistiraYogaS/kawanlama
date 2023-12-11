@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         actions: [IconButton.outlined(onPressed: () async => _doLogout(), icon: const Icon(Icons.logout))],
       ),
       routes: const [
-        LoginRoute(),
+        ContactRoute(),
         LoginRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
