@@ -3,8 +3,8 @@
 Kawan Lama Challange Take Home Test
 
 ### Project Requirement :
-1.  Flutter version 3.13.1
-2.  Dart version 3.1.0
+1.  Flutter version 3.13.9
+2.  Dart version 3.1.5
 
 ### Folder Structure
 Using [DDD](https://resocoder.com/2020/03/09/flutter-firebase-ddd-course-1-domain-driven-design-principles/) design pattern but not strict.
