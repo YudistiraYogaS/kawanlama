@@ -69,6 +69,36 @@ class I10n {
       args: [],
     );
   }
+
+  /// `Hei,`
+  String get greetings {
+    return Intl.message(
+      'Hei,',
+      name: 'greetings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome`
+  String get welcome {
+    return Intl.message(
+      'Welcome',
+      name: 'welcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please login with {sign_in_provider} to continue`
+  String login_info(Object sign_in_provider) {
+    return Intl.message(
+      'Please login with $sign_in_provider to continue',
+      name: 'login_info',
+      desc: '',
+      args: [sign_in_provider],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<I10n> {

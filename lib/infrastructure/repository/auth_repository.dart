@@ -1,18 +1,21 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
+import 'package:kawanlama/domain/constant/app_strings.dart';
 import 'package:kawanlama/domain/interface/i_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @LazySingleton(as: IAuth)
 class AuthRepository implements IAuth {
   final GoogleSignIn _googleSignIn;
+  final SharedPreferences _preferences;
 
-  AuthRepository(this._googleSignIn);
+  AuthRepository(this._googleSignIn, this._preferences);
 
   @override
   Future<bool> signInWithGoogle() async {
     try {
       final signIn = await _googleSignIn.signIn();
-      /// TODO: Save data to prefs
+      if (signIn != null) await _preferences.setBool(AppStrings.loginKey, true);
       return true;
     } catch (e) {
       rethrow;
@@ -25,10 +28,13 @@ class AuthRepository implements IAuth {
       if (await _googleSignIn.isSignedIn()) {
         await _googleSignIn.signOut();
       }
-      /// TODO: Remove data from prefs
+      await _preferences.remove(AppStrings.loginKey);
       return true;
     } catch (e) {
       rethrow;
     }
   }
+
+  @override
+  bool isLoggedIn() => _preferences.getBool(AppStrings.loginKey) ?? false;
 }

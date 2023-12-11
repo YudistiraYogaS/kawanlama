@@ -18,7 +18,7 @@ class AppButton {
       onPressed: enabled ? onPressed : null,
       style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 8)),
-          backgroundColor: color ?? AppColors.primary,
+          backgroundColor: color ?? AppColors.primary.withOpacity(0.6),
           elevation: 0,
           padding: padding ?? const EdgeInsets.symmetric(vertical: 16, horizontal: 16)),
       child: Row(
