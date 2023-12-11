@@ -16,6 +16,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   drift: ^2.10.0
   flutter_easyloading: ^3.0.5
+  flutter_screenutil: ^5.8.4
+  flutter_svg: ^2.0.7
+  get: ^4.6.6
   get_it: ^7.6.0
   google_sign_in: ^6.1.6
   injectable: "2.1.2"

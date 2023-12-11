@@ -1,0 +1,13 @@
+{
+ "sign_in_with": "Sign In With {sign_in_provider}",
+ "@sign_in_provider": {
+    "description": "Sign In Provider",
+    "placeholders" : {
+        "sign_in_provider": {
+           "type": "String",
+           "example": "Google"
+        }
+    }
+ },
+ "logout": "Logout"
+}
