@@ -23,7 +23,7 @@ abstract class RegisterModule {
     );
 
     dio.options = baseOptions;
-    dio.interceptors.add(PrettyDioLogger());
+    dio.interceptors.add(PrettyDioLogger(requestHeader: true, responseBody: false, request: false));
 
     return dio;
   }

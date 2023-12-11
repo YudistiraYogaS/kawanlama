@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kawanlama/domain/dto/item_dto.dart';
+import 'package:kawanlama/presentation/components/app_dialog.dart';
 import 'package:kawanlama/utilities/utilities.dart';
 
 class ContactItemWidgets extends StatelessWidget {
@@ -15,7 +16,9 @@ class ContactItemWidgets extends StatelessWidget {
         title: Text(item.name),
         subtitle: Text(item.type),
         value: item.isFavorite,
-        onChanged: (bool? value) {},
+        onChanged: (bool? value) async  {
+          await AppDialog.showInfoInMd(context, info: item.description);
+        },
       ),
     );
   }

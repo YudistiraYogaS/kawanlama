@@ -10,7 +10,7 @@ class ItemMapper {
         .map((e) => ItemDTO(
             id: generateId(),
             name: e.nama ?? '',
-            description: e.keterangan ?? '',
+            description: (e.keterangan ?? '').replaceAll('<i>', '_').replaceAll('<\/i>', "_"),
             audioUrl: e.audio ?? '',
             number: int.parse(e.nomor ?? "0"),
             type: e.type ?? '',
