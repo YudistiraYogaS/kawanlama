@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:kawanlama/domain/constant/app_pages.dart';
 import 'package:kawanlama/presentation/ui/auth/login_page.dart';
 import 'package:kawanlama/presentation/ui/home/contact_page.dart';
+import 'package:kawanlama/presentation/ui/home/favorite_page.dart';
 import 'package:kawanlama/presentation/ui/home/home_page.dart';
 import 'package:kawanlama/utilities/router/app_route_guard.dart';
 
@@ -26,7 +27,7 @@ class AppRouter extends _$AppRouter {
             children: [
               RedirectRoute(path: '', redirectTo: AppPages.homeContactRoute),
               AutoRoute(path: AppPages.homeContactRoute, page: ContactRoute.page),
-              AutoRoute(path: AppPages.homeFavoriteRoute, page: LoginRoute.page),
+              AutoRoute(path: AppPages.homeFavoriteRoute, page: FavoriteRoute.page),
             ]),
       ];
 }

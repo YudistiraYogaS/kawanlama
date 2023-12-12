@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
+import 'package:kawanlama/infrastructure/core/database_module/database_module.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,4 +28,7 @@ abstract class RegisterModule {
 
     return dio;
   }
+
+  @lazySingleton
+  MyDatabase get db => MyDatabase();
 }

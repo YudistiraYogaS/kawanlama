@@ -20,4 +20,15 @@ class ItemDTO {
   });
 
   factory ItemDTO.empty() => const ItemDTO();
+
+  ItemDTO copyWith(bool isSelected) => ItemDTO(
+    id: id,
+    name: name,
+    description: description,
+    audioUrl: audioUrl,
+    number: number,
+    type: type,
+    mean: mean,
+    isFavorite: isSelected,
+  );
 }

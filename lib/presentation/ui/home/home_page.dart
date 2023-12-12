@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
       ),
       routes: const [
         ContactRoute(),
-        LoginRoute(),
+        FavoriteRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
