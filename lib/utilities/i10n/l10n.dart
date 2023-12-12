@@ -119,6 +119,46 @@ class I10n {
       args: [],
     );
   }
+
+  /// `Printing`
+  String get printing {
+    return Intl.message(
+      'Printing',
+      name: 'printing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Surah Name`
+  String get surah_name {
+    return Intl.message(
+      'Surah Name',
+      name: 'surah_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Qty`
+  String get qty {
+    return Intl.message(
+      'Qty',
+      name: 'qty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Empty Data`
+  String get empty_data {
+    return Intl.message(
+      'Empty Data',
+      name: 'empty_data',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<I10n> {

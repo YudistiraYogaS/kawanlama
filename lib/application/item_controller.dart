@@ -4,6 +4,7 @@ import 'package:kawanlama/domain/dto/item_dto.dart';
 import 'package:kawanlama/domain/interface/i_item_data_source.dart';
 import 'package:kawanlama/domain/mapper/item_mapper.dart';
 import 'package:kawanlama/infrastructure/core/database_module/dao/favorite_dao.dart';
+import 'package:kawanlama/utilities/pdf_utillities.dart';
 
 @lazySingleton
 class ItemController extends GetxController {
@@ -65,6 +66,15 @@ class ItemController extends GetxController {
       await _favoritesDao.deleteFavoriteById(data.id);
       await getFavorites();
       items(modifiedItem);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> print() async {
+    try {
+      final doc = await createPDF(favoritesItems);
+      await printingDocument(doc);
     } catch (e) {
       rethrow;
     }

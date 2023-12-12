@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kawanlama/application/item_controller.dart';
 import 'package:kawanlama/presentation/ui/home/components/contact_item_widgets.dart';
+import 'package:kawanlama/utilities/i10n/l10n.dart';
 import 'package:kawanlama/utilities/injection/injection.dart';
 import 'package:kawanlama/utilities/utilities.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -25,8 +26,8 @@ class _ContactPageState extends State<ContactPage> {
       showChildOpacityTransition: false,
       child: Obx(() {
         if (_itemController.items.isEmpty) {
-          return const Center(
-            child: Text('Empty Data'),
+          return Center(
+            child: Text(I10n.current.empty_data),
           );
         } else {
           return ListView.separated(
