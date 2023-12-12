@@ -1,6 +1,7 @@
 # kawanlama
 ## Getting Started
-Kawan Lama Challange Take Home Test
+Kawan Lama Challange Take Home Test 
+[Download App](https://drive.google.com/file/d/1TVxalqwT-qjiPxiykfOmoj2Bp1oM74Ni/view?usp=drive_link)
 
 ### Project Requirement :
 1.  Flutter version 3.13.9
