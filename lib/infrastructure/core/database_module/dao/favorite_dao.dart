@@ -7,7 +7,7 @@ import 'package:kawanlama/infrastructure/core/database_module/database_table/fav
 
 part 'favorite_dao.g.dart';
 
-// the _TodosDaoMixin will be created by drift. It contains all the necessary
+// the _FavoritesDaoMixin will be created by drift. It contains all the necessary
 // fields for the tables. The <MyDatabase> type annotation is the database class
 // that should use this dao.
 @LazySingleton()
@@ -17,15 +17,15 @@ class FavoritesDao extends DatabaseAccessor<MyDatabase> with _$FavoritesDaoMixin
   // of this object.
   FavoritesDao(MyDatabase db) : super(db);
 
-  Future<List<Favorite>> getAllFavorites() async => await select(favorites).get();
+  Future<List<Favorite>> getAllFavorites(String user) async => await (select(favorites)..where((t) => t.user.equals(user))).get();
 
   Future insertFavorite(Insertable<Favorite> favorite) async => await into(favorites).insert(favorite);
 
-  Future deleteFavoriteById(String id) async => await (delete(favorites)..where((t) => t.sourceId.equals(id))).go();
+  Future deleteFavoriteById(String id, String user) async => await db.customStatement("DELETE FROM Favorites where source_id = ? and user = ?", [id, user]);
 
-  Future insertTransaction(List<ItemDTO> data) async => await db.transaction(() async {
+  Future insertTransaction(List<ItemDTO> data, String user) async => await db.transaction(() async {
         for (var item in data) {
-          await insertFavorite(ItemMapper.favoriteFromItemDTO(item));
+          await insertFavorite(ItemMapper.favoriteFromItemDTO(item, user));
         }
       });
 }

@@ -57,6 +57,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i12.ItemController>(() => _i12.ItemController(
           gh<_i5.IItemDataSource>(),
           gh<_i9.FavoritesDao>(),
+          gh<_i10.IAuth>(),
         ));
     gh.lazySingleton<_i13.AppRouteGuard>(
         () => _i13.AppRouteGuard(gh<_i10.IAuth>()));

@@ -8,6 +8,7 @@ class AppStrings {
 
   /// prefs key
   static String get loginKey => "prefs-login-key";
+  static String get accountKey => "prefs-account-key";
 
   /// url related
   static const String baseUrl = 'https://al-quran-8d642.firebaseio.com/';

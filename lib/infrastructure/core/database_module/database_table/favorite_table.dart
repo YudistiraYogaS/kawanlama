@@ -20,5 +20,7 @@ class Favorites extends Table {
 
   BoolColumn get isFavorite => boolean().named('is_favorite')();
 
+  TextColumn get user => text().nullable()();
+
   DateTimeColumn get createdAt => dateTime().named('created_at').withDefault(currentDateAndTime)();
 }

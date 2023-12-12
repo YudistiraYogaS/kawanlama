@@ -21,7 +21,7 @@ class ItemMapper {
         .toList();
   }
 
-  static Insertable<Favorite> favoriteFromItemDTO(ItemDTO data) {
+  static Insertable<Favorite> favoriteFromItemDTO(ItemDTO data, String user) {
     return FavoritesCompanion(
       sourceId: Value(data.id),
       name: Value(data.name),
@@ -31,6 +31,7 @@ class ItemMapper {
       type: Value(data.type),
       mean: Value(data.mean),
       isFavorite: const Value(true),
+      user: Value(user),
     );
   }
 
@@ -45,6 +46,7 @@ class ItemMapper {
               type: e.type ?? '',
               mean: e.mean ?? '',
               isFavorite: e.isFavorite,
+              user: e.user ?? '',
             ))
         .toList();
   }

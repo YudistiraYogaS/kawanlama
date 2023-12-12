@@ -7,6 +7,7 @@ class ItemDTO {
   final String type;
   final String mean;
   final bool isFavorite;
+  final String user;
 
   const ItemDTO({
     this.id = '',
@@ -17,18 +18,20 @@ class ItemDTO {
     this.type = '',
     this.mean = '',
     this.isFavorite = false,
+    this.user = '',
   });
 
   factory ItemDTO.empty() => const ItemDTO();
 
-  ItemDTO copyWith(bool isSelected) => ItemDTO(
-    id: id,
-    name: name,
-    description: description,
-    audioUrl: audioUrl,
-    number: number,
-    type: type,
-    mean: mean,
-    isFavorite: isSelected,
-  );
+  ItemDTO copyWith(bool isSelected, {String? users}) => ItemDTO(
+        id: id,
+        name: name,
+        description: description,
+        audioUrl: audioUrl,
+        number: number,
+        type: type,
+        mean: mean,
+        isFavorite: isSelected,
+        user: users ?? user,
+      );
 }

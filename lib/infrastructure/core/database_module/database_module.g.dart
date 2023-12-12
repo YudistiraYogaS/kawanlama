@@ -64,6 +64,11 @@ class $FavoritesTable extends Favorites
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'CHECK ("is_favorite" IN (0, 1))'));
+  static const VerificationMeta _userMeta = const VerificationMeta('user');
+  @override
+  late final GeneratedColumn<String> user = GeneratedColumn<String>(
+      'user', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _createdAtMeta =
       const VerificationMeta('createdAt');
   @override
@@ -83,6 +88,7 @@ class $FavoritesTable extends Favorites
         type,
         mean,
         isFavorite,
+        user,
         createdAt
       ];
   @override
@@ -138,6 +144,10 @@ class $FavoritesTable extends Favorites
     } else if (isInserting) {
       context.missing(_isFavoriteMeta);
     }
+    if (data.containsKey('user')) {
+      context.handle(
+          _userMeta, user.isAcceptableOrUnknown(data['user']!, _userMeta));
+    }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
@@ -169,6 +179,8 @@ class $FavoritesTable extends Favorites
           .read(DriftSqlType.string, data['${effectivePrefix}mean']),
       isFavorite: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_favorite'])!,
+      user: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user']),
       createdAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
     );
@@ -190,6 +202,7 @@ class Favorite extends DataClass implements Insertable<Favorite> {
   final String? type;
   final String? mean;
   final bool isFavorite;
+  final String? user;
   final DateTime createdAt;
   const Favorite(
       {required this.id,
@@ -201,6 +214,7 @@ class Favorite extends DataClass implements Insertable<Favorite> {
       this.type,
       this.mean,
       required this.isFavorite,
+      this.user,
       required this.createdAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -226,6 +240,9 @@ class Favorite extends DataClass implements Insertable<Favorite> {
       map['mean'] = Variable<String>(mean);
     }
     map['is_favorite'] = Variable<bool>(isFavorite);
+    if (!nullToAbsent || user != null) {
+      map['user'] = Variable<String>(user);
+    }
     map['created_at'] = Variable<DateTime>(createdAt);
     return map;
   }
@@ -246,6 +263,7 @@ class Favorite extends DataClass implements Insertable<Favorite> {
       type: type == null && nullToAbsent ? const Value.absent() : Value(type),
       mean: mean == null && nullToAbsent ? const Value.absent() : Value(mean),
       isFavorite: Value(isFavorite),
+      user: user == null && nullToAbsent ? const Value.absent() : Value(user),
       createdAt: Value(createdAt),
     );
   }
@@ -263,6 +281,7 @@ class Favorite extends DataClass implements Insertable<Favorite> {
       type: serializer.fromJson<String?>(json['type']),
       mean: serializer.fromJson<String?>(json['mean']),
       isFavorite: serializer.fromJson<bool>(json['isFavorite']),
+      user: serializer.fromJson<String?>(json['user']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
   }
@@ -279,6 +298,7 @@ class Favorite extends DataClass implements Insertable<Favorite> {
       'type': serializer.toJson<String?>(type),
       'mean': serializer.toJson<String?>(mean),
       'isFavorite': serializer.toJson<bool>(isFavorite),
+      'user': serializer.toJson<String?>(user),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
   }
@@ -293,6 +313,7 @@ class Favorite extends DataClass implements Insertable<Favorite> {
           Value<String?> type = const Value.absent(),
           Value<String?> mean = const Value.absent(),
           bool? isFavorite,
+          Value<String?> user = const Value.absent(),
           DateTime? createdAt}) =>
       Favorite(
         id: id ?? this.id,
@@ -304,6 +325,7 @@ class Favorite extends DataClass implements Insertable<Favorite> {
         type: type.present ? type.value : this.type,
         mean: mean.present ? mean.value : this.mean,
         isFavorite: isFavorite ?? this.isFavorite,
+        user: user.present ? user.value : this.user,
         createdAt: createdAt ?? this.createdAt,
       );
   @override
@@ -318,6 +340,7 @@ class Favorite extends DataClass implements Insertable<Favorite> {
           ..write('type: $type, ')
           ..write('mean: $mean, ')
           ..write('isFavorite: $isFavorite, ')
+          ..write('user: $user, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
@@ -325,7 +348,7 @@ class Favorite extends DataClass implements Insertable<Favorite> {
 
   @override
   int get hashCode => Object.hash(id, sourceId, name, description, audioUrl,
-      number, type, mean, isFavorite, createdAt);
+      number, type, mean, isFavorite, user, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -339,6 +362,7 @@ class Favorite extends DataClass implements Insertable<Favorite> {
           other.type == this.type &&
           other.mean == this.mean &&
           other.isFavorite == this.isFavorite &&
+          other.user == this.user &&
           other.createdAt == this.createdAt);
 }
 
@@ -352,6 +376,7 @@ class FavoritesCompanion extends UpdateCompanion<Favorite> {
   final Value<String?> type;
   final Value<String?> mean;
   final Value<bool> isFavorite;
+  final Value<String?> user;
   final Value<DateTime> createdAt;
   final Value<int> rowid;
   const FavoritesCompanion({
@@ -364,6 +389,7 @@ class FavoritesCompanion extends UpdateCompanion<Favorite> {
     this.type = const Value.absent(),
     this.mean = const Value.absent(),
     this.isFavorite = const Value.absent(),
+    this.user = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -377,6 +403,7 @@ class FavoritesCompanion extends UpdateCompanion<Favorite> {
     this.type = const Value.absent(),
     this.mean = const Value.absent(),
     required bool isFavorite,
+    this.user = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
   })  : sourceId = Value(sourceId),
@@ -391,6 +418,7 @@ class FavoritesCompanion extends UpdateCompanion<Favorite> {
     Expression<String>? type,
     Expression<String>? mean,
     Expression<bool>? isFavorite,
+    Expression<String>? user,
     Expression<DateTime>? createdAt,
     Expression<int>? rowid,
   }) {
@@ -404,6 +432,7 @@ class FavoritesCompanion extends UpdateCompanion<Favorite> {
       if (type != null) 'type': type,
       if (mean != null) 'mean': mean,
       if (isFavorite != null) 'is_favorite': isFavorite,
+      if (user != null) 'user': user,
       if (createdAt != null) 'created_at': createdAt,
       if (rowid != null) 'rowid': rowid,
     });
@@ -419,6 +448,7 @@ class FavoritesCompanion extends UpdateCompanion<Favorite> {
       Value<String?>? type,
       Value<String?>? mean,
       Value<bool>? isFavorite,
+      Value<String?>? user,
       Value<DateTime>? createdAt,
       Value<int>? rowid}) {
     return FavoritesCompanion(
@@ -431,6 +461,7 @@ class FavoritesCompanion extends UpdateCompanion<Favorite> {
       type: type ?? this.type,
       mean: mean ?? this.mean,
       isFavorite: isFavorite ?? this.isFavorite,
+      user: user ?? this.user,
       createdAt: createdAt ?? this.createdAt,
       rowid: rowid ?? this.rowid,
     );
@@ -466,6 +497,9 @@ class FavoritesCompanion extends UpdateCompanion<Favorite> {
     if (isFavorite.present) {
       map['is_favorite'] = Variable<bool>(isFavorite.value);
     }
+    if (user.present) {
+      map['user'] = Variable<String>(user.value);
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -487,6 +521,7 @@ class FavoritesCompanion extends UpdateCompanion<Favorite> {
           ..write('type: $type, ')
           ..write('mean: $mean, ')
           ..write('isFavorite: $isFavorite, ')
+          ..write('user: $user, ')
           ..write('createdAt: $createdAt, ')
           ..write('rowid: $rowid')
           ..write(')'))
