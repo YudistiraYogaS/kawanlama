@@ -4,4 +4,6 @@ abstract interface class IAuth {
   Future<bool> signOut();
 
   bool isLoggedIn();
+
+  String userLoggedIn();
 }

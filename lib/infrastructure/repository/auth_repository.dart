@@ -15,7 +15,10 @@ class AuthRepository implements IAuth {
   Future<bool> signInWithGoogle() async {
     try {
       final signIn = await _googleSignIn.signIn();
-      if (signIn != null) await _preferences.setBool(AppStrings.loginKey, true);
+      if (signIn != null) {
+        await _preferences.setBool(AppStrings.loginKey, true);
+        await _preferences.setString(AppStrings.accountKey, signIn.email);
+      }
       return true;
     } catch (e) {
       rethrow;
@@ -29,6 +32,7 @@ class AuthRepository implements IAuth {
         await _googleSignIn.signOut();
       }
       await _preferences.remove(AppStrings.loginKey);
+      await _preferences.remove(AppStrings.accountKey);
       return true;
     } catch (e) {
       rethrow;
@@ -37,4 +41,7 @@ class AuthRepository implements IAuth {
 
   @override
   bool isLoggedIn() => _preferences.getBool(AppStrings.loginKey) ?? false;
+
+  @override
+  String userLoggedIn() => _preferences.getString(AppStrings.accountKey) ?? '';
 }
