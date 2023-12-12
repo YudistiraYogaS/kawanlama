@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>461240250333-emsd6omh6h1jui4gm20ta6gvnkkee7sm.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCoPjSdaEZwQb14ZiJb44Pgn-58Y6uiRHU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>461240250333</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>szk.challange.kawanlama</string>
+	<key>PROJECT_ID</key>
+	<string>take-home-d2ce3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>take-home-d2ce3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:461240250333:ios:635dce66fd496415701034</string>
+</dict>
+</plist>

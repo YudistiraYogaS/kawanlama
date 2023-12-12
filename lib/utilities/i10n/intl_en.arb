@@ -1,0 +1,22 @@
+{
+  "sign_in_with": "Sign In With {sign_in_provider}",
+  "@sign_in_provider": {
+    "description": "Sign In Provider",
+    "placeholders": {
+      "sign_in_provider": {
+        "type": "String",
+        "example": "Google"
+      }
+    }
+  },
+  "logout": "Logout",
+  "greetings": "Hei,",
+  "welcome": "Welcome",
+  "login_info": "Please login with {sign_in_provider} to continue",
+  "contact": "Contact",
+  "favorite": "Favorite",
+  "printing": "Printing",
+  "surah_name": "Surah Name",
+  "qty": "Qty",
+  "empty_data": "Empty Data"
+}
