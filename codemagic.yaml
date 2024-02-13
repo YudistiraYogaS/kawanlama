@@ -7,8 +7,8 @@ workflows:
       cancel_previous_builds: true
     max_build_duration: 120
     environment:
-      android_signing:
-        - keystore_reference
+      # android_signing:
+      #   - keystore_reference
       groups:
         - google_play
       vars:
@@ -16,6 +16,9 @@ workflows:
         GOOGLE_PLAY_TRACK: internal
       flutter: stable
     scripts:
+      - name: Check Keystore Path
+        script: |
+          echo "$CM_KEYSTORE_PATH" > "$CM_KEY_ALIAS"
       - name: Set up local.properties
         script: | 
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
@@ -32,15 +35,15 @@ workflows:
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/mapping.txt
       - flutter_drive.log
-    publishing:
-      email:
-        recipients:
-          - yudhistiray198@gmail.com
-          - yudhistiray198@outlook.com
-        notify:
-          success: true
-          failure: true
-      google_play:
-        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: $GOOGLE_PLAY_TRACK
-        submit_as_draft: true
+    # publishing:
+    #   email:
+    #     recipients:
+    #       - yudhistiray198@gmail.com
+    #       - yudhistiray198@outlook.com
+    #     notify:
+    #       success: true
+    #       failure: true
+    #   google_play:
+    #     credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+    #     track: $GOOGLE_PLAY_TRACK
+    #     submit_as_draft: true
