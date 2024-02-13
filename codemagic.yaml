@@ -7,8 +7,8 @@ workflows:
       cancel_previous_builds: true
     max_build_duration: 120
     environment:
-      # android_signing:
-      #   - keystore_reference
+      android_signing:
+        - keystore_reference
       groups:
         - google_play
       vars:
@@ -16,9 +16,6 @@ workflows:
         GOOGLE_PLAY_TRACK: internal
       flutter: stable
     scripts:
-      - name: Check Keystore Path
-        script: |
-          echo "$CM_KEYSTORE_PATH" > "$CM_KEY_ALIAS"
       - name: Set up local.properties
         script: | 
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
