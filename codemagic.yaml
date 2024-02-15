@@ -24,6 +24,9 @@ workflows:
           BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$GOOGLE_PLAY_TRACK") + 1))
           echo "$BUILD_NUMBER"
           flutter build appbundle --release \
+            -- flavor prod
+            -t lib/main_staging.dart \
+            -v \
             --build-name=1.0.$BUILD_NUMBER \
             --build-number=$BUILD_NUMBER
     artifacts:
