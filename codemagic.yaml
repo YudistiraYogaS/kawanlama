@@ -4,8 +4,8 @@ workflows:
     instance_type: mac_mini_m1
     max_build_duration: 120
     environment:
-      # android_signing:
-      #   - kl_keystore
+      android_signing:
+        - kl_keystore
       groups:
         - google_play # <-- (Includes GCLOUD_SERVICE_ACCOUNT_CREDENTIALS)
       vars:
