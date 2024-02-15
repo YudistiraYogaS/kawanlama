@@ -23,9 +23,7 @@ workflows:
         script: |
           BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$GOOGLE_PLAY_TRACK") + 1))
           echo "$BUILD_NUMBER"
-          echo "$System.getenv()["CM_KEYSTORE_PATH"]"
-          echo "$System.getenv()["CI"]"
-          echo "$System.getenv()["CM_KEY_ALIAS"]"
+          echo "$CM_KEY_ALIAS"
           flutter build appbundle --release -v \
             --build-name=1.0.$BUILD_NUMBER \
             --build-number=$BUILD_NUMBER
