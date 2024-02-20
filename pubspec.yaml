@@ -36,6 +36,8 @@ dependencies:
   shared_preferences: ^2.2.0
   sqlite3_flutter_libs: ^0.5.15
   uuid: 
+  s:
+    git: https://github.com/YudistiraYogaS/private_repo.git
 
   # firebase related
   firebase_core: ^2.24.2
