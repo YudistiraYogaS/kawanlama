@@ -11,7 +11,7 @@ workflows:
       vars:
         PACKAGE_NAME: "szk.challange.kawanlama" # <-- Put your package name here
         GOOGLE_PLAY_TRACK: "internal"
-      flutter: stable
+      flutter: 3.24.1
     scripts:
       - name: Set up local.properties
         script: |
