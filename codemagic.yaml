@@ -31,8 +31,7 @@ workflows:
           flutter packages pub get
       - name: Build APK with Flutter
         script: |
-          echo "Tag: $CI_TAG"
-          BUILD_NUMBER=${CI_TAG##*+}
+          BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$GOOGLE_PLAY_TRACK")))
           echo "Extracted build number: $BUILD_NUMBER"
           sed -i.bak 's/^ *version:.*$/version: 1.0.0+'$BUILD_NUMBER'/' pubspec.yaml
           echo "$BUILD_NUMBER"
