@@ -29,7 +29,7 @@ workflows:
       - name: Get Flutter packages
         script: |
           flutter packages pub get
-      - name: Get version and auto-increment build number
+      - name: Get version, auto-increment build number and build APK with Flutter
         script: |
           git fetch --tags
 
@@ -54,9 +54,6 @@ workflows:
 
           # Update pubspec.yaml
           sed -i.bak "s/^version: .*/version: $VERSION_NAME+$NEW_BUILD_NUMBER/" pubspec.yaml
-      - name: Build APK with Flutter
-        script: |
-          echo "New build number: $NEW_BUILD_NUMBER"
           flutter build apk --release -v \
             --build-name=1.0.0 \
             --build-number=$NEW_BUILD_NUMBER
