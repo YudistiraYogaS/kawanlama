@@ -29,16 +29,36 @@ workflows:
       - name: Get Flutter packages
         script: |
           flutter packages pub get
+      - name: Get version and auto-increment build number
+        script: |
+          git fetch --tags
+
+          # Get the latest tag or fallback
+          export GIT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0+59")
+          echo "Latest Git tag: $GIT_TAG"
+
+          # Remove the 'v' prefix
+          export VERSION_FULL=${GIT_TAG#v}
+
+          # Extract version name and build number
+          export VERSION_NAME=$(echo $VERSION_FULL | cut -d'+' -f1)
+          export BUILD_NUMBER=$(echo $VERSION_FULL | cut -d'+' -f2)
+          export OLD_BUILD_NUMBER_GOOGLE=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$GOOGLE_PLAY_TRACK")))
+
+          # Increment build number (add 10)
+          export NEW_BUILD_NUMBER=$((OLD_BUILD_NUMBER_GOOGLE + BUILD_NUMBER))
+
+          echo "Version name: $VERSION_NAME"
+          echo "Old build number: $OLD_BUILD_NUMBER_GOOGLE"
+          echo "New build number: $NEW_BUILD_NUMBER"
+
+          # Update pubspec.yaml
+          sed -i.bak "s/^version: .*/version: $VERSION_NAME+$NEW_BUILD_NUMBER/" pubspec.yaml
       - name: Build APK with Flutter
         script: |
-          BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$GOOGLE_PLAY_TRACK")))
-          echo "Extracted build number: $BUILD_NUMBER"
-          sed -i.bak 's/^ *version:.*$/version: 1.0.0+'$BUILD_NUMBER'/' pubspec.yaml
-          echo "$BUILD_NUMBER"
-          echo "$CM_KEY_ALIAS"
-          flutter build appbundle --release -v \
-            --build-name=1.0.$BUILD_NUMBER \
-            --build-number=$BUILD_NUMBER
+          flutter build apk --release -v \
+            --build-name=1.0.0 \
+            --build-number=$NEW_BUILD_NUMBER
     artifacts:
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/mapping.txt
@@ -50,7 +70,3 @@ workflows:
         notify:
           success: true
           failure: false
-      google_play:
-        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: $GOOGLE_PLAY_TRACK
-        submit_as_draft: true
